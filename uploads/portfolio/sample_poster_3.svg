@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bg-poster_health" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064E3B"/>
+      <stop offset="60%" stop-color="#065F46"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="glow-poster_health" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A7F3D0" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.2"/>
+    </linearGradient>
+    <filter id="blur-filter" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="50"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-poster_health)"/>
+
+  <!-- Decorative Ambient Glow Circles -->
+  <circle cx="150" cy="120" r="180" fill="#A7F3D0" opacity="0.35" filter="url(#blur-filter)"/>
+  <circle cx="680" cy="380" r="220" fill="#F59E0B" opacity="0.28" filter="url(#blur-filter)"/>
+
+  <!-- Geometric Grid Accent Overlay -->
+  <g opacity="0.08" stroke="#FFFFFF" stroke-width="1">
+    <line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="400" x2="800" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="450"/>
+    <line x1="400" y1="0" x2="400" y2="450"/>
+    <line x1="600" y1="0" x2="600" y2="450"/>
+  </g>
+
+  <!-- Modern Design Frame & Glass Card Mockup -->
+  <g transform="translate(60, 50)">
+    <!-- Glassmorphism Card Box -->
+    <rect width="680" height="350" rx="20" fill="#FFFFFF" fill-opacity="0.07" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="1.5"/>
+
+    <!-- Category Pill Badge -->
+    <rect x="40" y="40" width="160" height="32" rx="16" fill="#A7F3D0" fill-opacity="0.3" stroke="#A7F3D0" stroke-width="1.5"/>
+    <text x="120" y="61" fill="#FFFFFF" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">POSTER / INFOGRAFIS</text>
+
+    <!-- Main Title -->
+    <text x="40" y="125" fill="#FFFFFF" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="28" font-weight="800" letter-spacing="-0.5">
+      Health &amp; Wellness Campaign Poster
+    </text>
+
+    <!-- Design Badges & Tools Mockup -->
+    <g transform="translate(40, 160)">
+      <rect width="100" height="26" rx="6" fill="#000000" fill-opacity="0.4"/>
+      <text x="50" y="17" fill="#E2E8F0" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">PHOTOSHOP</text>
+
+      <rect x="110" y="0" width="110" height="26" rx="6" fill="#000000" fill-opacity="0.4"/>
+      <text x="165" y="17" fill="#E2E8F0" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">ILLUSTRATOR</text>
+
+      <rect x="230" y="0" width="80" height="26" rx="6" fill="#000000" fill-opacity="0.4"/>
+      <text x="270" y="17" fill="#E2E8F0" font-family="sans-serif" font-size="11" font-weight="600" text-anchor="middle">FIGMA</text>
+    </g>
+
+    <!-- Visual Mockup Element (Graphic Visualizer) -->
+    <g transform="translate(40, 220)">
+      <!-- Waveform / Bar Chart / Art Preview -->
+      <rect x="0" y="50" width="30" height="40" rx="4" fill="#A7F3D0" opacity="0.9"/>
+      <rect x="40" y="30" width="30" height="60" rx="4" fill="#F59E0B" opacity="0.9"/>
+      <rect x="80" y="10" width="30" height="80" rx="4" fill="#FFFFFF" opacity="0.95"/>
+      <rect x="120" y="25" width="30" height="65" rx="4" fill="#A7F3D0" opacity="0.9"/>
+      <rect x="160" y="45" width="30" height="45" rx="4" fill="#F59E0B" opacity="0.8"/>
+      <rect x="200" y="15" width="30" height="75" rx="4" fill="#FFFFFF" opacity="0.9"/>
+      <rect x="240" y="35" width="30" height="55" rx="4" fill="#A7F3D0" opacity="0.9"/>
+    </g>
+
+    <!-- Right-side Graphic Illustration Stamp -->
+    <g transform="translate(460, 110)">
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#A7F3D0" stroke-width="4" stroke-dasharray="8 6"/>
+      <circle cx="100" cy="100" r="50" fill="#F59E0B" opacity="0.2"/>
+      <polygon points="100,60 135,125 65,125" fill="#FFFFFF" opacity="0.9"/>
+      <circle cx="100" cy="105" r="12" fill="#064E3B"/>
+    </g>
+  </g>
+
+  <!-- Watermark / Brand Signature -->
+  <text x="730" y="420" fill="#FFFFFF" opacity="0.5" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="600" text-anchor="end">
+    DIMAS ARYA • DESIGN PORTFOLIO
+  </text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="grad-avatar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="50%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="grad-hair" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="96" fill="url(#grad-avatar)" stroke="#FFFFFF" stroke-width="4"/>
+  <circle cx="100" cy="90" r="42" fill="#FDE68A"/>
+  <path d="M 60 78 Q 100 45 140 78 Q 148 55 130 42 Q 100 30 70 42 Q 52 55 60 78 Z" fill="url(#grad-hair)"/>
+  <circle cx="85" cy="88" r="5" fill="#1E293B"/>
+  <circle cx="115" cy="88" r="5" fill="#1E293B"/>
+  <path d="M 88 105 Q 100 118 112 105" stroke="#1E293B" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M 40 185 Q 100 135 160 185" fill="#1E293B"/>
+  <path d="M 75 145 L 100 170 L 125 145 Z" fill="#3B82F6"/>
+  <circle cx="150" cy="150" r="24" fill="#10B981" stroke="#FFFFFF" stroke-width="3"/>
+  <path d="M 142 150 L 148 156 L 160 142" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

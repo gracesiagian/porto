@@ -1,0 +1,145 @@
+/* ==========================================================
+   Aesthetic Graphic Design Portfolio & CMS - Custom Styles
+   Typography: Plus Jakarta Sans
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+
+:root {
+    --bg-primary: #F8F9FA;
+    --bg-card: #FFFFFF;
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    --accent-emerald: #10B981;
+    --accent-indigo: #4F46E5;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+}
+
+/* Subtle Card Glow & Elevation */
+.carrd-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.carrd-pill {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carrd-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -4px rgba(0, 0, 0, 0.08);
+}
+
+.carrd-pill:active {
+    transform: translateY(0);
+}
+
+/* Gallery Portfolio Card Micro-Interactions */
+.portfolio-card {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, opacity 0.3s ease;
+    will-change: transform, box-shadow;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(15, 23, 42, 0.05);
+}
+
+.portfolio-card .artwork-img {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-card:hover .artwork-img {
+    transform: scale(1.04);
+}
+
+.portfolio-card .overlay-actions {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Filter Tab Transitions */
+.filter-btn {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.filter-btn.active {
+    background-color: #1E293B;
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(30, 41, 59, 0.18);
+}
+
+/* Lightbox Modal Animations */
+#artwork-lightbox {
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+#artwork-lightbox.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#artwork-lightbox .lightbox-content {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+#artwork-lightbox.active .lightbox-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Pulse Beacon */
+@keyframes pulse-ring {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.status-beacon {
+    animation: pulse-ring 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Toast Notifications */
+.toast-alert {
+    animation: toastSlideIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
