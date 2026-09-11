@@ -33,10 +33,11 @@ $favicon_type  = match($favicon_ext) {
     <title><?= e($page_title ?? 'Dashboard') ?> — Admin CMS</title>
     
     <!-- Favicon Integration -->
+    <link rel="icon" type="image/png" href="/assets/favicon_porto.png">
     <link rel="icon" type="image/png" href="<?= asset_url('favicon_porto.png') ?>">
     <link rel="icon" type="image/svg+xml" href="<?= asset_url('favicon_porto.svg') ?>">
-    <link rel="shortcut icon" href="<?= asset_url('favicon_porto.ico') ?>">
-    <link rel="apple-touch-icon" href="<?= asset_url('favicon_porto.png') ?>">
+    <link rel="shortcut icon" href="/assets/favicon_porto.png">
+    <link rel="apple-touch-icon" href="/assets/favicon_porto.png">
     
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

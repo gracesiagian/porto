@@ -18,13 +18,25 @@ $whatsapp_number  = get_setting('whatsapp_number', '6287794297888');
 $whatsapp_message = get_setting('whatsapp_message', 'Halo yelloplanetman, saya tertarik dengan karya portofolio desain Anda. Ingin konsultasi project:');
 $twitter_url      = get_setting('twitter_url', 'https://twitter.com/');
 
-// Fetch Categories & Active Portfolio Works
-$categories      = get_categories();
-$portfolio_items = get_portfolio_items(null, true);
-$total_items     = count($portfolio_items);
+// Fetch Categories
+$categories = get_categories();
 
-// Optional active category filter via GET parameter
+// Category filter support via GET query parameter
 $selected_category = trim($_GET['category'] ?? 'all');
+$cat_id = null;
+if ($selected_category !== 'all' && $selected_category !== '') {
+    foreach ($categories as $c) {
+        if ($c['slug'] === $selected_category) {
+            $cat_id = (int)$c['id'];
+            break;
+        }
+    }
+}
+
+// Fetch active portfolio items (filtered by category if selected, otherwise all)
+$all_items_count = count(get_portfolio_items(null, true));
+$portfolio_items = get_portfolio_items($cat_id, true);
+$total_items     = count($portfolio_items);
 
 require_once __DIR__ . '/includes/header.php';
 ?>
@@ -103,21 +115,23 @@ require_once __DIR__ . '/includes/header.php';
             </div>
         </div>
 
-        <!-- Category Filter Tabs (Pill Buttons) -->
+        <!-- Category Filter Tabs (Pill Buttons - Hybrid PHP & JS) -->
         <div id="category-filters" class="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
-            <button type="button" 
-                    data-filter="all" 
-                    class="filter-btn active flex-shrink-0 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border border-slate-900 bg-slate-900 text-white shadow-xs cursor-pointer transition-all">
+            <a href="portfolio.php" 
+               data-filter="all" 
+               data-category="all"
+               class="category-btn filter-btn <?= ($selected_category === 'all' || empty($selected_category)) ? 'active bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 hover:bg-slate-100 border-slate-200/80' ?> flex-shrink-0 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border shadow-xs cursor-pointer transition-all">
                 Semua Karya
-                <span class="filter-count ml-1.5 px-2 py-0.5 rounded-full bg-white/20 text-white text-[11px] font-bold"><?= $total_items ?></span>
-            </button>
+                <span class="filter-count ml-1.5 px-2 py-0.5 rounded-full <?= ($selected_category === 'all' || empty($selected_category)) ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500' ?> text-[11px] font-bold"><?= $all_items_count ?></span>
+            </a>
             <?php foreach ($categories as $cat): ?>
-            <button type="button" 
-                    data-filter="<?= e($cat['slug']) ?>" 
-                    class="filter-btn flex-shrink-0 px-5 py-2.5 rounded-full bg-white text-slate-600 hover:bg-slate-100 text-xs sm:text-sm font-bold border border-slate-200/80 shadow-xs cursor-pointer transition-all">
+            <a href="portfolio.php?category=<?= urlencode($cat['slug']) ?>" 
+               data-filter="<?= e($cat['slug']) ?>" 
+               data-category="<?= e($cat['slug']) ?>"
+               class="category-btn filter-btn <?= ($selected_category === $cat['slug']) ? 'active bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 hover:bg-slate-100 border-slate-200/80' ?> flex-shrink-0 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border shadow-xs cursor-pointer transition-all">
                 <?= e($cat['name']) ?>
-                <span class="filter-count ml-1.5 px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold"><?= $cat['item_count'] ?></span>
-            </button>
+                <span class="filter-count ml-1.5 px-2 py-0.5 rounded-full <?= ($selected_category === $cat['slug']) ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500' ?> text-[11px] font-bold"><?= $cat['item_count'] ?></span>
+            </a>
             <?php endforeach; ?>
         </div>
 
@@ -209,7 +223,7 @@ require_once __DIR__ . '/includes/header.php';
      INTERACTIVE ARTWORK LIGHTBOX MODAL (MULTI-SLIDE CAROUSEL)
      ========================================================== -->
 <div id="artwork-lightbox" 
-     class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-lg transition-all duration-300"
+     class="hidden fixed inset-0 z-50 items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-lg"
      role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
     
     <!-- Lightbox Modal Box -->

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 2. Category Filtering Logic
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    const filterButtons = document.querySelectorAll('.category-btn, .filter-btn');
     const portfolioCards = document.querySelectorAll('.portfolio-card');
     const itemsCountEl = document.getElementById('visible-count');
 
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         portfolioCards.forEach(card => {
             const cardCategory = card.getAttribute('data-category');
-            if (category === 'all' || cardCategory === category) {
+            if (category === 'all' || !category || cardCategory === category) {
                 card.classList.remove('hidden');
                 card.style.display = '';
                 card.style.opacity = '0';
@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update active classes on filter buttons
         filterButtons.forEach(b => {
-            const bFilter = b.getAttribute('data-filter') || 'all';
+            const bCategory = b.getAttribute('data-category') || b.getAttribute('data-filter') || 'all';
             const countBadge = b.querySelector('.filter-count');
 
-            if (bFilter === category) {
+            if (bCategory === category || (category === 'all' && (bCategory === 'all' || !bCategory))) {
                 b.classList.add('active', 'bg-slate-900', 'text-white', 'border-slate-900');
                 b.classList.remove('bg-white', 'text-slate-600', 'hover:bg-slate-100', 'border-slate-200/80');
                 if (countBadge) {
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     filterButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const category = btn.getAttribute('data-filter') || 'all';
+            const category = btn.getAttribute('data-category') || btn.getAttribute('data-filter') || 'all';
             filterPortfolio(category);
 
             // Update URL without page reload for shareability

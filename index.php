@@ -84,18 +84,18 @@ require_once __DIR__ . '/includes/header.php';
                 <i data-lucide="arrow-right" class="w-4 h-4 ml-0.5 opacity-80"></i>
             </a>
 
-            <!-- Social Action Buttons (Twitter/X & WhatsApp) - Symmetrical & Balanced -->
+            <!-- Social Action Buttons (Twitter/X & WhatsApp) - Explicit Symmetrical 1fr 1fr Grid -->
             <?php 
             $has_twitter  = !empty($twitter_url);
             $has_whatsapp = !empty($whatsapp_number);
             ?>
             <?php if ($has_twitter || $has_whatsapp): ?>
-            <div class="grid <?= ($has_twitter && $has_whatsapp) ? 'grid-cols-2' : 'grid-cols-1' ?> gap-3 w-full" style="display: grid; grid-template-columns: repeat(<?= ($has_twitter && $has_whatsapp) ? '2' : '1' ?>, 1fr); gap: 12px; width: 100%;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; margin-top: 16px;">
                 <!-- Twitter / X -->
                 <?php if ($has_twitter): ?>
                 <a href="<?= e($twitter_url) ?>" target="_blank" rel="noopener noreferrer" 
-                   class="carrd-pill inline-flex items-center justify-center gap-2 px-3 py-3 rounded-2xl bg-white border border-slate-200 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs text-center w-full active:scale-98"
-                   style="display: inline-flex; align-items: center; justify-content: center; text-align: center; width: 100%;">
+                   class="carrd-pill rounded-2xl bg-white border border-slate-200 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs active:scale-98"
+                   style="display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; box-sizing: border-box; margin: 0; padding: 12px 14px; gap: 8px;">
                     <i data-lucide="twitter" class="w-4 h-4 text-slate-800 flex-shrink-0"></i>
                     <span class="truncate">Twitter / X</span>
                 </a>
@@ -105,8 +105,8 @@ require_once __DIR__ . '/includes/header.php';
                 <?php if ($has_whatsapp): ?>
                 <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $whatsapp_number) ?>?text=<?= urlencode($whatsapp_message) ?>" 
                    target="_blank" rel="noopener noreferrer" 
-                   class="carrd-pill inline-flex items-center justify-center gap-2 px-3 py-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs sm:text-sm hover:bg-emerald-100 hover:border-emerald-300 transition-all shadow-xs text-center w-full active:scale-98"
-                   style="display: inline-flex; align-items: center; justify-content: center; text-align: center; width: 100%;">
+                   class="carrd-pill rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs sm:text-sm hover:bg-emerald-100 hover:border-emerald-300 transition-all shadow-xs active:scale-98"
+                   style="display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; box-sizing: border-box; margin: 0; padding: 12px 14px; gap: 8px;">
                     <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
                     <span class="truncate">WhatsApp</span>
                 </a>
