@@ -55,8 +55,8 @@ require_once __DIR__ . '/includes/header.php';
         <?php endif; ?>
 
         <!-- Avatar / Illustration with Glowing Gradient Ring -->
-        <div class="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-5 group">
-            <div class="absolute -inset-1 bg-gradient-to-tr from-indigo-500 via-sky-400 to-emerald-400 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-500"></div>
+        <div class="relative w-36 h-36 sm:w-40 sm:h-40 mx-auto mb-6 group">
+            <div class="absolute -inset-1.5 bg-gradient-to-tr from-indigo-500 via-sky-400 to-emerald-400 rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500"></div>
             <img src="<?= $profile_img ?>" 
                  alt="<?= e($designer_name) ?>" 
                  class="relative w-full h-full object-cover rounded-full bg-white p-1 border border-white shadow-inner">
@@ -100,7 +100,7 @@ require_once __DIR__ . '/includes/header.php';
                 <a href="<?= e($twitter_url) ?>" target="_blank" rel="noopener noreferrer" 
                    class="carrd-pill rounded-2xl bg-white border border-slate-200 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs active:scale-98"
                    style="display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; box-sizing: border-box; margin: 0; padding: 12px 14px; gap: 8px;">
-                    <img src="<?= asset_url('logo_twt.png') ?>" alt="Twitter / X" class="w-4 h-4 object-contain flex-shrink-0">
+                    <img src="<?= asset_url('logo_twt.png') ?>" alt="Twitter / X" class="w-5 h-5 object-contain flex-shrink-0">
                     <span class="truncate">Twitter / X</span>
                 </a>
                 <?php endif; ?>
@@ -111,7 +111,7 @@ require_once __DIR__ . '/includes/header.php';
                    target="_blank" rel="noopener noreferrer" 
                    class="carrd-pill rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold text-xs sm:text-sm hover:bg-emerald-100 hover:border-emerald-300 transition-all shadow-xs active:scale-98"
                    style="display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; box-sizing: border-box; margin: 0; padding: 12px 14px; gap: 8px;">
-                    <i data-lucide="message-circle" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                    <i data-lucide="message-circle" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
                     <span class="truncate">WhatsApp</span>
                 </a>
                 <?php endif; ?>
