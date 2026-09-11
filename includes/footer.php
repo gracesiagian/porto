@@ -34,7 +34,9 @@ $email_address = get_setting('email_address', 'dimas.design@example.com');
                     <?php if ($twitter_url): ?>
                     <a href="<?= e($twitter_url) ?>" target="_blank" rel="noopener noreferrer" 
                        class="p-2.5 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-all" title="Twitter / X">
-                        <i data-lucide="twitter" class="w-4 h-4"></i>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
                     </a>
                     <?php endif; ?>
 

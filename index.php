@@ -96,7 +96,9 @@ require_once __DIR__ . '/includes/header.php';
                 <a href="<?= e($twitter_url) ?>" target="_blank" rel="noopener noreferrer" 
                    class="carrd-pill rounded-2xl bg-white border border-slate-200 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs active:scale-98"
                    style="display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; box-sizing: border-box; margin: 0; padding: 12px 14px; gap: 8px;">
-                    <i data-lucide="twitter" class="w-4 h-4 text-slate-800 flex-shrink-0"></i>
+                    <svg class="w-4 h-4 text-slate-900 fill-current flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
                     <span class="truncate">Twitter / X</span>
                 </a>
                 <?php endif; ?>

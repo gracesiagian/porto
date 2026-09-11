@@ -16,7 +16,7 @@ $categories = get_categories();
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
     <div>
         <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Kategori Portofolio</h1>
-        <p class="text-xs sm:text-sm text-slate-500 mt-1">Kelola filter tab galeri seperti Thumbnail, Poster, Pricelist, Laporan Diklat</p>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">Kelola filter tab galeri seperti Thumbnail, Poster, Pricelist</p>
     </div>
     <button type="button" 
             data-open-modal="modal-add-category"

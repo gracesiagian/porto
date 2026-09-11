@@ -11,15 +11,11 @@ require_once __DIR__ . '/includes/admin_header.php';
 
 $db = get_db();
 
-// Counts & Metrics
-$total_artworks = (int)$db->query("SELECT COUNT(*) FROM portfolio_items")->fetchColumn();
-$active_artworks = (int)$db->query("SELECT COUNT(*) FROM portfolio_items WHERE is_active = 1")->fetchColumn();
-$total_categories = (int)$db->query("SELECT COUNT(*) FROM categories")->fetchColumn();
+// Fetch Recent Items
 $recent_items = $db->query("SELECT p.*, c.name as category_name FROM portfolio_items p INNER JOIN categories c ON p.category_id = c.id ORDER BY p.created_at DESC LIMIT 6")->fetchAll();
 
 $designer_name = get_setting('designer_name', 'yelloplanetman');
 $status_badge  = get_setting('status_badge', 'Open for Commission');
-$whatsapp_num  = get_setting('whatsapp_number', '6287794297888');
 ?>
 
 <!-- Welcome Banner -->
@@ -47,58 +43,6 @@ $whatsapp_num  = get_setting('whatsapp_number', '6287794297888');
                 <i data-lucide="external-link" class="w-4 h-4"></i>
                 <span>Lihat Portofolio</span>
             </a>
-        </div>
-    </div>
-</div>
-
-<!-- Stats Metric Cards -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-    
-    <!-- Total Artworks -->
-    <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-center justify-between">
-        <div>
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Karya Desain</span>
-            <p class="text-3xl font-extrabold text-slate-900 mt-1"><?= $total_artworks ?></p>
-            <span class="text-xs text-emerald-600 font-semibold mt-1 inline-block"><?= $active_artworks ?> Aktif Tampil</span>
-        </div>
-        <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
-            <i data-lucide="image" class="w-6 h-6"></i>
-        </div>
-    </div>
-
-    <!-- Categories -->
-    <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-center justify-between">
-        <div>
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Kategori Desain</span>
-            <p class="text-3xl font-extrabold text-slate-900 mt-1"><?= $total_categories ?></p>
-            <a href="<?= base_url('admin/categories.php') ?>" class="text-xs text-indigo-600 hover:underline font-semibold mt-1 inline-block">Kelola Kategori →</a>
-        </div>
-        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
-            <i data-lucide="tags" class="w-6 h-6"></i>
-        </div>
-    </div>
-
-    <!-- WhatsApp Channel -->
-    <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-center justify-between">
-        <div>
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">WhatsApp Client</span>
-            <p class="text-sm font-extrabold text-slate-900 mt-1 truncate max-w-[150px]"><?= e($whatsapp_num) ?></p>
-            <span class="text-xs text-emerald-600 font-semibold mt-1 inline-block">Direct Inquire Ready</span>
-        </div>
-        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-            <i data-lucide="message-circle" class="w-6 h-6"></i>
-        </div>
-    </div>
-
-    <!-- Settings Quick Link -->
-    <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs flex items-center justify-between">
-        <div>
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Profil & Bio</span>
-            <p class="text-sm font-extrabold text-slate-900 mt-1">Carrd Style Card</p>
-            <a href="<?= base_url('admin/settings.php') ?>" class="text-xs text-indigo-600 hover:underline font-semibold mt-1 inline-block">Edit Profil →</a>
-        </div>
-        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
-            <i data-lucide="sliders" class="w-6 h-6"></i>
         </div>
     </div>
 </div>
