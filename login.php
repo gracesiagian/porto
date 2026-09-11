@@ -44,7 +44,7 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jangan masuk— <?= e($designer_name) ?></title>
+    <title>jangan kesini — <?= e($designer_name) ?></title>
     
     <!-- Favicon Integration -->
     <link rel="icon" type="image/jpeg" href="/assets/faviconyell.jpg">
@@ -95,7 +95,7 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
                 <i data-lucide="shield-check" class="w-7 h-7"></i>
             </div>
             <h1 class="text-2xl font-black text-white tracking-tight">CMS Admin Panel</h1>
-            <p class="text-xs text-slate-400 mt-1">Kelola portofolio, kategori & profil desain</p>
+            <p class="text-xs text-slate-400 mt-1">khusus yello</p>
         </div>
 
         <!-- Flash & Error Alert -->
@@ -122,6 +122,7 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
                         <i data-lucide="user" class="w-4 h-4"></i>
                     </div>
                     <input type="text" id="username" name="username" required autofocus
+                           value="admin"
                            placeholder="Masukkan username"
                            class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
                 </div>
@@ -129,14 +130,18 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
 
             <!-- Password Field -->
             <div>
-                <label for="password" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                    Password
-                </label>
+                <div class="flex items-center justify-between mb-2">
+                    <label for="password" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                        Password
+                    </label>
+                    <span class="text-[11px] text-slate-400">Default: <code class="text-indigo-400">admin123</code></span>
+                </div>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
                         <i data-lucide="lock" class="w-4 h-4"></i>
                     </div>
                     <input type="password" id="password" name="password" required
+                           value="admin123"
                            placeholder="Masukkan password"
                            class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all">
                 </div>
