@@ -98,13 +98,13 @@ require_once __DIR__ . '/includes/header.php';
             <div>
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold mb-3 shadow-2xs">
                     <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-500"></i>
-                    <span>Selected Works & Artworks</span>
+                    <span>Welcome</span>
                 </div>
                 <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
                     Galeri Portofolio Desain
                 </h1>
                 <p class="text-slate-500 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
-                    Koleksi karya visual kreatif berkualitas tinggi: YouTube Thumbnail, Poster / Infografis, Pricelist, dan Cover Laporan Diklat.
+                    Hasil-hasil design selama ini (´｡• ᵕ •｡`)
                 </p>
             </div>
 
