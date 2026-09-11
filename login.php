@@ -44,7 +44,7 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin CMS Login — <?= e($designer_name) ?></title>
+    <title>jangan masuk — <?= e($designer_name) ?></title>
     
     <!-- Favicon Integration -->
     <link rel="icon" type="image/jpeg" href="/assets/faviconyell.jpg">
