@@ -31,17 +31,18 @@ $favicon_type = match($favicon_ext) {
     <meta name="description" content="<?= e($site_tagline) ?>">
     <meta name="author" content="<?= e(get_setting('designer_name', 'Dimas Arya')) ?>">
     
-    <!-- Dynamic Brand Favicon -->
-    <link rel="icon" type="<?= $favicon_type ?>" href="<?= e($favicon_url) ?>">
-    <link rel="shortcut icon" type="<?= $favicon_type ?>" href="<?= e($favicon_url) ?>">
-    <link rel="apple-touch-icon" href="<?= e($favicon_url) ?>">
+    <!-- Favicon Integration -->
+    <link rel="icon" type="image/png" href="<?= asset_url('favicon_porto.png') ?>">
+    <link rel="icon" type="image/svg+xml" href="<?= asset_url('favicon_porto.svg') ?>">
+    <link rel="shortcut icon" href="<?= asset_url('favicon_porto.ico') ?>">
+    <link rel="apple-touch-icon" href="<?= asset_url('favicon_porto.png') ?>">
     
     <!-- OpenGraph / Social Meta -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= e($site_title) ?>">
     <meta property="og:description" content="<?= e($site_tagline) ?>">
     <meta property="og:url" content="<?= e(base_url()) ?>">
-    <meta property="og:image" content="<?= e($favicon_url) ?>">
+    <meta property="og:image" content="<?= asset_url('favicon_porto.png') ?>">
     
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

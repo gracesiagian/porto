@@ -56,10 +56,11 @@ $favicon_type  = match($favicon_ext) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin CMS Login — <?= e($designer_name) ?></title>
     
-    <!-- Dynamic Brand Favicon -->
-    <link rel="icon" type="<?= $favicon_type ?>" href="<?= e($favicon_url) ?>">
-    <link rel="shortcut icon" type="<?= $favicon_type ?>" href="<?= e($favicon_url) ?>">
-    <link rel="apple-touch-icon" href="<?= e($favicon_url) ?>">
+    <!-- Favicon Integration -->
+    <link rel="icon" type="image/png" href="<?= asset_url('favicon_porto.png') ?>">
+    <link rel="icon" type="image/svg+xml" href="<?= asset_url('favicon_porto.svg') ?>">
+    <link rel="shortcut icon" href="<?= asset_url('favicon_porto.ico') ?>">
+    <link rel="apple-touch-icon" href="<?= asset_url('favicon_porto.png') ?>">
     
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

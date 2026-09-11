@@ -9,13 +9,13 @@ declare(strict_types=1);
 require_once __DIR__ . '/config/helpers.php';
 
 // Fetch Site Profile Settings
-$designer_name    = get_setting('designer_name', 'Dimas Arya');
+$designer_name    = get_setting('designer_name', 'yelloplanetman');
 $designer_role    = get_setting('designer_role', 'Visual & Graphic Designer');
 $status_badge     = get_setting('status_badge', 'Open for Commissions & Freelance');
 $status_available = get_setting('status_available', '1') === '1';
 $avatar_url       = get_setting('avatar_url', 'assets/images/avatar.svg');
-$whatsapp_number  = get_setting('whatsapp_number', '6281234567890');
-$whatsapp_message = get_setting('whatsapp_message', 'Halo Dimas, saya tertarik dengan karya portofolio desain Anda. Ingin konsultasi project:');
+$whatsapp_number  = get_setting('whatsapp_number', '6287794297888');
+$whatsapp_message = get_setting('whatsapp_message', 'Halo yelloplanetman, saya tertarik dengan karya portofolio desain Anda. Ingin konsultasi project:');
 $twitter_url      = get_setting('twitter_url', 'https://twitter.com/');
 
 // Fetch Categories & Active Portfolio Works
@@ -32,22 +32,24 @@ require_once __DIR__ . '/includes/header.php';
 <!-- ==========================================================
      TOPBAR NAVIGATION: BACK TO BIO & DIRECT CONTACT
      ========================================================== -->
-<header class="sticky top-0 z-30 bg-white/85 backdrop-blur-md border-b border-slate-200/80 shadow-2xs transition-all">
+<header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-2xs transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
             
-            <!-- Left: Back to Profile Link with Avatar -->
+            <!-- Left: Back to Profile Link with Avatar & Perfectly Aligned Text -->
             <a href="<?= base_url() ?>" 
-               class="group inline-flex items-center gap-3 text-slate-700 hover:text-slate-900 transition-colors">
-                <div class="w-8 h-8 rounded-full overflow-hidden border border-slate-200 shadow-2xs group-hover:scale-105 transition-transform">
+               class="group inline-flex items-center gap-3 text-slate-700 hover:text-slate-900 transition-colors"
+               style="display: flex; align-items: center; gap: 12px;">
+                <div class="w-10 h-10 rounded-full overflow-hidden border border-slate-200 shadow-2xs flex-shrink-0 group-hover:scale-105 transition-transform bg-slate-100">
                     <img src="<?= upload_url($avatar_url) ?>" alt="<?= e($designer_name) ?>" class="w-full h-full object-cover">
                 </div>
-                <div>
-                    <div class="flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-slate-900 leading-none">
-                        <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-slate-400 group-hover:-translate-x-0.5 group-hover:text-slate-900 transition-all"></i>
-                        <span><?= e($designer_name) ?></span>
-                    </div>
-                    <span class="text-[10px] text-slate-400 font-medium hidden sm:inline-block">Kembali ke Profil</span>
+                <div class="flex flex-col justify-center" style="display: flex; flex-direction: column; justify-content: center;">
+                    <span class="font-extrabold text-slate-900 text-sm leading-tight m-0 p-0 group-hover:text-indigo-600 transition-colors">
+                        <?= e($designer_name) ?>
+                    </span>
+                    <span class="text-[11px] text-slate-400 font-medium leading-tight mt-0.5">
+                        ← Kembali ke Profil
+                    </span>
                 </div>
             </a>
 
@@ -102,19 +104,19 @@ require_once __DIR__ . '/includes/header.php';
         </div>
 
         <!-- Category Filter Tabs (Pill Buttons) -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
+        <div id="category-filters" class="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
             <button type="button" 
                     data-filter="all" 
-                    class="filter-btn active flex-shrink-0 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border border-slate-200/80 shadow-xs cursor-pointer">
+                    class="filter-btn active flex-shrink-0 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold border border-slate-900 bg-slate-900 text-white shadow-xs cursor-pointer transition-all">
                 Semua Karya
-                <span class="ml-1.5 px-2 py-0.5 rounded-full bg-white/20 text-white text-[11px] font-bold"><?= $total_items ?></span>
+                <span class="filter-count ml-1.5 px-2 py-0.5 rounded-full bg-white/20 text-white text-[11px] font-bold"><?= $total_items ?></span>
             </button>
             <?php foreach ($categories as $cat): ?>
             <button type="button" 
                     data-filter="<?= e($cat['slug']) ?>" 
-                    class="filter-btn flex-shrink-0 px-5 py-2.5 rounded-full bg-white text-slate-600 hover:bg-slate-100 text-xs sm:text-sm font-bold border border-slate-200/80 shadow-xs cursor-pointer">
+                    class="filter-btn flex-shrink-0 px-5 py-2.5 rounded-full bg-white text-slate-600 hover:bg-slate-100 text-xs sm:text-sm font-bold border border-slate-200/80 shadow-xs cursor-pointer transition-all">
                 <?= e($cat['name']) ?>
-                <span class="ml-1.5 px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold"><?= $cat['item_count'] ?></span>
+                <span class="filter-count ml-1.5 px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold"><?= $cat['item_count'] ?></span>
             </button>
             <?php endforeach; ?>
         </div>
@@ -132,8 +134,9 @@ require_once __DIR__ . '/includes/header.php';
         <?php else: ?>
         <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
             <?php foreach ($portfolio_items as $index => $item): ?>
-            <div class="portfolio-card group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs cursor-pointer flex flex-col justify-between"
+            <div class="portfolio-card group bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs cursor-pointer flex flex-col justify-between select-none"
                  data-id="<?= $item['id'] ?>"
+                 data-portfolio-id="<?= $item['id'] ?>"
                  data-category="<?= e($item['category_slug']) ?>"
                  data-category-name="<?= e($item['category_name']) ?>"
                  data-title="<?= e($item['title']) ?>"
@@ -150,7 +153,7 @@ require_once __DIR__ . '/includes/header.php';
                          class="artwork-img w-full h-full object-cover">
                     
                     <!-- Top Category Badge -->
-                    <div class="absolute top-3 left-3 z-10">
+                    <div class="absolute top-3 left-3 z-10 pointer-events-none">
                         <span class="px-3 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-white text-[11px] font-bold tracking-wide border border-white/20 shadow-xs">
                             <?= e($item['category_name']) ?>
                         </span>
@@ -158,7 +161,7 @@ require_once __DIR__ . '/includes/header.php';
 
                     <!-- Multi-Slide Carousel Pill Badge (Top Right) -->
                     <?php if (!empty($item['image_count']) && $item['image_count'] > 1): ?>
-                    <div class="absolute top-3 right-3 z-10">
+                    <div class="absolute top-3 right-3 z-10 pointer-events-none">
                         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-950/85 backdrop-blur-md text-white text-[11px] font-bold border border-white/20 shadow-xs">
                             <i data-lucide="layers" class="w-3.5 h-3.5 text-amber-400"></i>
                             <span><?= $item['image_count'] ?> Slides</span>
@@ -167,7 +170,7 @@ require_once __DIR__ . '/includes/header.php';
                     <?php endif; ?>
 
                     <!-- Overlay Inspect Indicator on Hover -->
-                    <div class="overlay-actions absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300">
+                    <div class="overlay-actions absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 pointer-events-none">
                         <span class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform">
                             <i data-lucide="maximize-2" class="w-4 h-4 text-indigo-600"></i>
                             <span><?= (!empty($item['image_count']) && $item['image_count'] > 1) ? 'Buka Carousel Desain' : 'Lihat Detail Desain' ?></span>
@@ -206,7 +209,7 @@ require_once __DIR__ . '/includes/header.php';
      INTERACTIVE ARTWORK LIGHTBOX MODAL (MULTI-SLIDE CAROUSEL)
      ========================================================== -->
 <div id="artwork-lightbox" 
-     class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-lg opacity-0 transition-opacity duration-300"
+     class="hidden fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-lg transition-all duration-300"
      role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
     
     <!-- Lightbox Modal Box -->

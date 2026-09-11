@@ -1,15 +1,18 @@
 /**
  * Main Client-Side JavaScript
- * Aesthetic Graphic Design Portfolio & Multi-Slide Carousel Lightbox
+ * Aesthetic Graphic Design Portfolio, Category Filtering & Multi-Slide Carousel Lightbox
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize Lucide Icons
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-    }
+    const initIcons = () => {
+        if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+            lucide.createIcons();
+        }
+    };
+    initIcons();
 
-    // --- Robust helper function to resolve upload & asset URLs ---
+    // --- Helper function to resolve upload & asset URLs ---
     function resolveUploadUrl(url) {
         if (!url) return '';
         if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
@@ -32,47 +35,71 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardCategory = card.getAttribute('data-category');
             if (category === 'all' || cardCategory === category) {
                 card.classList.remove('hidden');
+                card.style.display = '';
                 card.style.opacity = '0';
                 card.style.transform = 'scale(0.96)';
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                }, 40);
+                }, 30);
                 visibleCount++;
             } else {
                 card.classList.add('hidden');
+                card.style.display = 'none';
             }
         });
 
         if (itemsCountEl) {
             itemsCountEl.textContent = visibleCount;
         }
-        
+
+        // Update active classes on filter buttons
+        filterButtons.forEach(b => {
+            const bFilter = b.getAttribute('data-filter') || 'all';
+            const countBadge = b.querySelector('.filter-count');
+
+            if (bFilter === category) {
+                b.classList.add('active', 'bg-slate-900', 'text-white', 'border-slate-900');
+                b.classList.remove('bg-white', 'text-slate-600', 'hover:bg-slate-100', 'border-slate-200/80');
+                if (countBadge) {
+                    countBadge.className = 'filter-count ml-1.5 px-2 py-0.5 rounded-full bg-white/20 text-white text-[11px] font-bold';
+                }
+            } else {
+                b.classList.remove('active', 'bg-slate-900', 'text-white', 'border-slate-900');
+                b.classList.add('bg-white', 'text-slate-600', 'hover:bg-slate-100', 'border-slate-200/80');
+                if (countBadge) {
+                    countBadge.className = 'filter-count ml-1.5 px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 text-[11px] font-bold';
+                }
+            }
+        });
+
         refreshPortfolioData();
     }
 
     filterButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterButtons.forEach(b => {
-                b.classList.remove('active', 'bg-slate-900', 'text-white');
-                b.classList.add('bg-white', 'text-slate-600', 'hover:bg-slate-100');
-            });
-            btn.classList.add('active', 'bg-slate-900', 'text-white');
-            btn.classList.remove('bg-white', 'text-slate-600', 'hover:bg-slate-100');
-
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             const category = btn.getAttribute('data-filter') || 'all';
             filterPortfolio(category);
+
+            // Update URL without page reload for shareability
+            if (window.history && window.history.replaceState) {
+                const url = new URL(window.location);
+                if (category === 'all') {
+                    url.searchParams.delete('category');
+                } else {
+                    url.searchParams.set('category', category);
+                }
+                window.history.replaceState({}, '', url);
+            }
         });
     });
 
-    // Check URL query param for preselected category (e.g. ?category=thumbnails)
+    // Check URL query param on page load (e.g. ?category=thumbnails)
     const urlParams = new URLSearchParams(window.location.search);
     const categoryParam = urlParams.get('category');
     if (categoryParam) {
-        const matchingBtn = document.querySelector(`.filter-btn[data-filter="${categoryParam}"]`);
-        if (matchingBtn) {
-            matchingBtn.click();
-        }
+        filterPortfolio(categoryParam);
     }
 
     // 3. Multi-Slide Carousel Lightbox Management
@@ -98,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function refreshPortfolioData() {
         portfolioData = [];
-        const activeCards = Array.from(portfolioCards).filter(card => !card.classList.contains('hidden'));
+        const allCards = Array.from(document.querySelectorAll('.portfolio-card'));
+        const activeCards = allCards.filter(card => !card.classList.contains('hidden') && card.style.display !== 'none');
         
         activeCards.forEach((card, idx) => {
             card.setAttribute('data-visible-idx', idx);
@@ -128,6 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             portfolioData.push({
                 index: idx,
+                id: card.getAttribute('data-portfolio-id') || card.getAttribute('data-id') || String(idx),
                 title: card.getAttribute('data-title') || '',
                 category: card.getAttribute('data-category-name') || '',
                 desc: card.getAttribute('data-desc') || '',
@@ -211,8 +240,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // WhatsApp Inquire Link with project title
         if (lightboxInquire) {
-            const rawPhone = lightboxInquire.getAttribute('data-phone') || '6281234567890';
-            const msg = `Halo Dimas, saya tertarik dengan portofolio desain "${project.title}" (${project.category}). Boleh konsultasi untuk project desain serupa?`;
+            const rawPhone = lightboxInquire.getAttribute('data-phone') || '6287794297888';
+            const msg = `Halo, saya tertarik dengan karya portofolio desain "${project.title}" (${project.category}). Boleh konsultasi untuk project desain serupa?`;
             lightboxInquire.href = `https://wa.me/${rawPhone}?text=${encodeURIComponent(msg)}`;
         }
 
@@ -303,10 +332,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (lightbox) {
             lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
             document.body.style.overflow = 'hidden';
             setTimeout(() => {
                 lightbox.classList.add('active');
-                if (typeof lucide !== 'undefined') lucide.createIcons();
+                initIcons();
             }, 10);
         }
     }
@@ -316,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
         setTimeout(() => {
+            lightbox.classList.remove('flex');
             lightbox.classList.add('hidden');
             if (lightboxImg) lightboxImg.src = '';
         }, 200);
@@ -361,15 +392,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Attach click listeners to cards
-    portfolioCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.no-lightbox')) return;
-            
+    // Attach click listeners to cards via Event Delegation & Direct Listeners
+    document.addEventListener('click', (e) => {
+        const card = e.target.closest('.portfolio-card');
+        if (card && !e.target.closest('.no-lightbox')) {
             refreshPortfolioData();
-            const visibleIdx = parseInt(card.getAttribute('data-visible-idx') || '0', 10);
-            openLightbox(visibleIdx, 0);
-        });
+            const cardId = card.getAttribute('data-portfolio-id') || card.getAttribute('data-id');
+            const projectIdx = portfolioData.findIndex(p => p.id == cardId || p.element === card);
+            if (projectIdx >= 0) {
+                openLightbox(projectIdx, 0);
+            } else {
+                const visibleIdx = parseInt(card.getAttribute('data-visible-idx') || '0', 10);
+                openLightbox(visibleIdx, 0);
+            }
+        }
     });
 
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
@@ -379,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close on backdrop click
     if (lightbox) {
         lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox || e.target.classList.contains('lightbox-backdrop')) {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-backdrop') || e.target.classList.contains('backdrop-blur-lg')) {
                 closeLightbox();
             }
         });
