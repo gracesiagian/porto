@@ -104,7 +104,7 @@ require_once __DIR__ . '/includes/header.php';
                     Galeri Portofolio Desain
                 </h1>
                 <p class="text-slate-500 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
-                    Hasil-hasil design selama ini (´｡• ᵕ •｡`)
+                    Data pribadi dan identitas disensor demi perlindungan privasi
                 </p>
             </div>
 
