@@ -46,7 +46,7 @@ $favicon_type  = match($favicon_ext) {
     
     <!-- Base URL Definition for Client JS -->
     <script>
-        window.BASE_URL = '<?= rtrim(base_url(), '/') ?>/';
+        window.BASE_URL = '<?= base_path() === '/' ? '/' : rtrim(base_path(), '/') . '/' ?>';
     </script>
     
     <!-- Tailwind CSS CDN -->

@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-if (session_status() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
     session_start([
         'cookie_httponly' => true,
         'cookie_samesite' => 'Lax'
@@ -16,20 +16,68 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once __DIR__ . '/database.php';
 
 /**
- * Returns Base URL of the application
+ * Detect if the request is running over HTTPS (including behind Reverse Proxies like Railway, Cloudflare, Heroku, Nginx)
+ */
+function is_https(): bool {
+    if (!empty($_SERVER['HTTPS']) && strtolower((string)$_SERVER['HTTPS']) !== 'off') {
+        return true;
+    }
+    if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower((string)$_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https') {
+        return true;
+    }
+    if (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower((string)$_SERVER['HTTP_X_FORWARDED_SSL']) === 'on') {
+        return true;
+    }
+    if (!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower((string)$_SERVER['HTTP_FRONT_END_HTTPS']) === 'on') {
+        return true;
+    }
+    if (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443) {
+        return true;
+    }
+    if (!empty($_SERVER['HTTP_X_FORWARDED_PORT']) && (int)$_SERVER['HTTP_X_FORWARDED_PORT'] === 443) {
+        return true;
+    }
+    if (!empty($_SERVER['REQUEST_SCHEME']) && strtolower((string)$_SERVER['REQUEST_SCHEME']) === 'https') {
+        return true;
+    }
+    if (!empty($_SERVER['HTTP_CF_VISITOR'])) {
+        $cf = json_decode((string)$_SERVER['HTTP_CF_VISITOR'], true);
+        if (isset($cf['scheme']) && strtolower((string)$cf['scheme']) === 'https') {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Returns the root-relative base path of the application (e.g. '' or '/porto').
+ * Useful for building root-relative asset and page URLs that never suffer from mixed content.
+ */
+function base_path(string $path = ''): string {
+    $script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+    $base_dir = preg_replace('#/(admin|includes|config).*$#', '', $script_dir);
+    $base_dir = trim((string)$base_dir, '/');
+    
+    $prefix = $base_dir !== '' ? '/' . $base_dir : '';
+    
+    if ($path === '') {
+        return $prefix !== '' ? $prefix : '/';
+    }
+    return $prefix . '/' . ltrim($path, '/');
+}
+
+/**
+ * Returns Full Base URL of the application with proper HTTPS detection
  */
 function base_url(string $path = ''): string {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
+    $protocol = is_https() ? 'https://' : 'http://';
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
     
-    // Determine script directory relative to docroot
     $script_dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
-    
-    // Strip trailing /admin or subdirs if called from admin
     $base_dir = preg_replace('#/(admin|includes|config).*$#', '', $script_dir);
-    $base_dir = rtrim($base_dir, '/');
+    $base_dir = trim((string)$base_dir, '/');
     
-    $url = $protocol . $host . $base_dir;
+    $url = $protocol . $host . ($base_dir !== '' ? '/' . $base_dir : '');
     if ($path !== '') {
         $url .= '/' . ltrim($path, '/');
     }
@@ -37,20 +85,23 @@ function base_url(string $path = ''): string {
 }
 
 /**
- * Asset URL helper
+ * Asset URL helper - returns root-relative path (e.g. /assets/css/custom.css or /porto/assets/css/custom.css)
  */
 function asset_url(string $path = ''): string {
-    return base_url('assets/' . ltrim($path, '/'));
+    return base_path('assets/' . ltrim($path, '/'));
 }
 
 /**
- * Upload URL helper
+ * Upload URL helper - returns root-relative path (e.g. /uploads/portfolio/... or /assets/images/avatar.svg)
  */
 function upload_url(string $path = ''): string {
     if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+        if (is_https() && str_starts_with($path, 'http://')) {
+            $path = 'https://' . substr($path, 7);
+        }
         return $path;
     }
-    return base_url(ltrim($path, '/'));
+    return base_path(ltrim($path, '/'));
 }
 
 /**

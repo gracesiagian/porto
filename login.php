@@ -46,10 +46,22 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin CMS Login — <?= e($designer_name) ?></title>
     
+    <!-- Favicon Integration -->
+    <link rel="icon" type="image/png" href="/assets/favicon_porto.png">
+    <link rel="icon" type="image/png" href="<?= asset_url('favicon_porto.png') ?>">
+    <link rel="icon" type="image/svg+xml" href="<?= asset_url('favicon_porto.svg') ?>">
+    <link rel="shortcut icon" href="/assets/favicon_porto.png">
+    <link rel="apple-touch-icon" href="/assets/favicon_porto.png">
+    
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+    
+    <!-- Base URL Definition for Client JS -->
+    <script>
+        window.BASE_URL = '<?= base_path() === '/' ? '/' : rtrim(base_path(), '/') . '/' ?>';
+    </script>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>

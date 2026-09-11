@@ -15,7 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Helper function to resolve upload & asset URLs ---
     function resolveUploadUrl(url) {
         if (!url) return '';
+        if (url.startsWith('http://') && window.location.protocol === 'https:') {
+            return 'https://' + url.substring(7);
+        }
         if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+            return url;
+        }
+        if (url.startsWith('/')) {
             return url;
         }
         const cleanPath = url.replace(/^\/+/, '');

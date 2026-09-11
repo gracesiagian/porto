@@ -500,11 +500,15 @@ $next_display_order = max($total_count + 1, $max_display_order + 1);
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     // --- HELPER BASE URL ---
-    const baseUrl = '<?= base_url() ?>';
+    const baseUrl = '<?= base_path() === '/' ? '' : rtrim(base_path(), '/') ?>';
     const uploadUrl = (path) => {
         if (!path) return '';
+        if (path.startsWith('http://') && window.location.protocol === 'https:') {
+            return 'https://' + path.substring(7);
+        }
         if (path.startsWith('http://') || path.startsWith('https://')) return path;
-        return baseUrl + '/' + path.replace(/^\/+/, '');
+        if (path.startsWith('/')) return path;
+        return (baseUrl ? baseUrl + '/' : '/') + path.replace(/^\/+/, '');
     };
 
     // --- FUNGSI BUKA & TUTUP MODAL ---
