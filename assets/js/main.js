@@ -109,20 +109,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 3. Multi-Slide Carousel Lightbox Management
-    const lightbox = document.getElementById('artwork-lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxTitle = document.getElementById('lightbox-title');
-    const lightboxCat = document.getElementById('lightbox-category');
-    const lightboxDesc = document.getElementById('lightbox-desc');
-    const lightboxInquire = document.getElementById('lightbox-inquire');
-    const lightboxClose = document.getElementById('lightbox-close');
-    const lightboxPrev = document.getElementById('lightbox-prev');
-    const lightboxNext = document.getElementById('lightbox-next');
-    const slideCounterWrap = document.getElementById('lightbox-slide-counter-wrap');
-    const slideCounter = document.getElementById('lightbox-slide-counter');
-    const dotsWrap = document.getElementById('lightbox-dots-wrap');
-    const thumbsSection = document.getElementById('lightbox-thumbs-section');
-    const thumbsGrid = document.getElementById('lightbox-thumbnails-grid');
+    const lightbox = document.getElementById('portfolio-modal') || document.getElementById('artwork-lightbox');
+    const lightboxImg = document.getElementById('modal-image') || document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('modal-title') || document.getElementById('lightbox-title');
+    const lightboxCat = document.getElementById('modal-category') || document.getElementById('lightbox-category');
+    const lightboxDesc = document.getElementById('modal-description') || document.getElementById('modal-desc') || document.getElementById('lightbox-desc');
+    const lightboxInquire = document.getElementById('modal-inquire') || document.getElementById('modal-whatsapp') || document.getElementById('lightbox-inquire');
+    const lightboxClose = document.getElementById('modal-close') || document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('modal-prev') || document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('modal-next') || document.getElementById('lightbox-next');
+    const slideCounterWrap = document.getElementById('modal-slide-counter-wrap') || document.getElementById('lightbox-slide-counter-wrap');
+    const slideCounter = document.getElementById('modal-slide-counter') || document.getElementById('lightbox-slide-counter');
+    const dotsWrap = document.getElementById('modal-dots-wrap') || document.getElementById('lightbox-dots-wrap');
+    const thumbsSection = document.getElementById('modal-thumbs-section') || document.getElementById('lightbox-thumbs-section');
+    const thumbsGrid = document.getElementById('modal-thumbnails-grid') || document.getElementById('lightbox-thumbnails-grid');
 
     // Collect all active portfolio items from DOM
     let portfolioData = [];
@@ -485,4 +485,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial data index build
     refreshPortfolioData();
+
+    // Global helper bindings
+    window.openPortfolioModal  = window.openPortfolioModal || openLightbox;
+    window.closePortfolioModal = window.closePortfolioModal || closeLightbox;
+    window.openLightbox        = window.openLightbox || openLightbox;
+    window.closeLightbox       = window.closeLightbox || closeLightbox;
+    window.modalNext           = window.modalNext || showNext;
+    window.modalPrev           = window.modalPrev || showPrev;
 });

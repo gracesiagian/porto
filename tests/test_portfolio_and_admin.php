@@ -134,9 +134,21 @@ if ($http_code_home !== 200) {
 assert_test("HTTP Home Page 200 OK", $http_code_home === 200);
 if ($html_home) {
     assert_test("Home Page Carrd Profile Card Rendered", str_contains((string)$html_home, 'carrd-container'));
-    assert_test("Home Page Portfolio Gallery Rendered", str_contains((string)$html_home, 'portfolio-gallery'));
-    assert_test("Home Page Lightbox Modal Rendered", str_contains((string)$html_home, 'artwork-lightbox'));
-    assert_test("Home Page Filter Tabs Rendered", str_contains((string)$html_home, 'filter-btn'));
+}
+
+// Test Dedicated Portfolio Page (portfolio.php)
+$ch = curl_init($base_http . "/portfolio.php");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$html_portfolio = curl_exec($ch);
+$http_code_portfolio = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+assert_test("HTTP Portfolio Page 200 OK", $http_code_portfolio === 200);
+if ($html_portfolio) {
+    assert_test("Portfolio Page Gallery Grid Rendered", str_contains((string)$html_portfolio, 'portfolio-gallery') || str_contains((string)$html_portfolio, 'portfolio-grid'));
+    assert_test("Portfolio Page Modal / Lightbox Rendered", str_contains((string)$html_portfolio, 'portfolio-modal') || str_contains((string)$html_portfolio, 'artwork-lightbox'));
+    assert_test("Portfolio Page Filter Tabs Rendered", str_contains((string)$html_portfolio, 'filter-btn'));
+    assert_test("Portfolio Page Onclick Handler Attached", str_contains((string)$html_portfolio, 'openPortfolioModal'));
 }
 
 $ch = curl_init($base_http . "/admin/login.php");
