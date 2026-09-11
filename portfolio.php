@@ -13,7 +13,12 @@ $designer_name    = get_setting('designer_name', 'yelloplanetman');
 $designer_role    = get_setting('designer_role', 'Visual & Graphic Designer');
 $status_badge     = get_setting('status_badge', 'Open for Commissions & Freelance');
 $status_available = get_setting('status_available', '1') === '1';
-$avatar_url       = get_setting('avatar_url', 'assets/images/avatar.svg');
+$avatar_url       = get_setting('avatar_url', '');
+$avatar_rel       = ltrim($avatar_url, '/');
+$profile_img      = !empty($avatar_rel) && file_exists(__DIR__ . '/' . $avatar_rel) && !is_dir(__DIR__ . '/' . $avatar_rel) && $avatar_rel !== 'assets/images/avatar.svg'
+    ? upload_url($avatar_url) 
+    : asset_url('faviconyell.jpg');
+
 $whatsapp_number  = get_setting('whatsapp_number', '6287794297888');
 $whatsapp_message = get_setting('whatsapp_message', 'Halo yelloplanetman, saya tertarik dengan karya portofolio desain Anda. Ingin konsultasi project:');
 $twitter_url      = get_setting('twitter_url', 'https://twitter.com/');
@@ -53,7 +58,7 @@ require_once __DIR__ . '/includes/header.php';
                class="group inline-flex items-center gap-3 text-slate-700 hover:text-slate-900 transition-colors"
                style="display: flex; align-items: center; gap: 12px;">
                 <div class="w-10 h-10 rounded-full overflow-hidden border border-slate-200 shadow-2xs flex-shrink-0 group-hover:scale-105 transition-transform bg-slate-100">
-                    <img src="<?= upload_url($avatar_url) ?>" alt="<?= e($designer_name) ?>" class="w-full h-full object-cover">
+                    <img src="<?= $profile_img ?>" alt="<?= e($designer_name) ?>" class="w-full h-full object-cover rounded-full">
                 </div>
                 <div class="flex flex-col justify-center" style="display: flex; flex-direction: column; justify-content: center;">
                     <span class="font-extrabold text-slate-900 text-sm leading-tight m-0 p-0 group-hover:text-indigo-600 transition-colors">

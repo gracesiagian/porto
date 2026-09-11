@@ -81,7 +81,7 @@ INSERT INTO site_settings (setting_key, setting_value) VALUES
 ('twitter_url', 'https://twitter.com/'),
 ('instagram_url', 'https://instagram.com/'),
 ('email_address', 'dimas.design@example.com'),
-('avatar_url', 'assets/images/avatar.svg'),
+('avatar_url', 'assets/faviconyell.jpg'),
 ('footer_credit', '© 2026 Dimas Arya. All rights reserved.')
 ON DUPLICATE KEY UPDATE setting_value=VALUES(setting_value);
 

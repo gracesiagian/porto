@@ -14,7 +14,11 @@ $designer_role    = get_setting('designer_role', 'Visual & Graphic Designer');
 $bio_summary      = get_setting('bio_summary', 'Graphic Designer specializing in YouTube Thumbnails, Marketing Posters, Service Pricelists, and Corporate Training Reports (Laporan Diklat). Delivering impactful visuals that drive engagement.');
 $status_badge     = get_setting('status_badge', 'Open for Commissions & Freelance');
 $status_available = get_setting('status_available', '1') === '1';
-$avatar_url       = get_setting('avatar_url', 'assets/images/avatar.svg');
+$avatar_url       = get_setting('avatar_url', '');
+$avatar_rel       = ltrim($avatar_url, '/');
+$profile_img      = !empty($avatar_rel) && file_exists(__DIR__ . '/' . $avatar_rel) && !is_dir(__DIR__ . '/' . $avatar_rel) && $avatar_rel !== 'assets/images/avatar.svg'
+    ? upload_url($avatar_url) 
+    : asset_url('faviconyell.jpg');
 
 $whatsapp_number  = get_setting('whatsapp_number', '6281234567890');
 $whatsapp_message = get_setting('whatsapp_message', 'Halo Dimas, saya tertarik dengan portofolio desain grafis Anda. Ingin konsultasi project design:');
@@ -53,7 +57,7 @@ require_once __DIR__ . '/includes/header.php';
         <!-- Avatar / Illustration with Glowing Gradient Ring -->
         <div class="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-5 group">
             <div class="absolute -inset-1 bg-gradient-to-tr from-indigo-500 via-sky-400 to-emerald-400 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition duration-500"></div>
-            <img src="<?= upload_url($avatar_url) ?>" 
+            <img src="<?= $profile_img ?>" 
                  alt="<?= e($designer_name) ?>" 
                  class="relative w-full h-full object-cover rounded-full bg-white p-1 border border-white shadow-inner">
         </div>
@@ -96,9 +100,7 @@ require_once __DIR__ . '/includes/header.php';
                 <a href="<?= e($twitter_url) ?>" target="_blank" rel="noopener noreferrer" 
                    class="carrd-pill rounded-2xl bg-white border border-slate-200 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-50 hover:border-slate-300 transition-all shadow-xs active:scale-98"
                    style="display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; box-sizing: border-box; margin: 0; padding: 12px 14px; gap: 8px;">
-                    <svg class="w-4 h-4 text-slate-900 fill-current flex-shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
+                    <img src="<?= asset_url('logo_twt.png') ?>" alt="Twitter / X" class="w-4 h-4 object-contain flex-shrink-0">
                     <span class="truncate">Twitter / X</span>
                 </a>
                 <?php endif; ?>

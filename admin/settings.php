@@ -55,7 +55,7 @@ $footer_credit    = get_setting('footer_credit', '© 2026 Dimas Arya. All rights
             <div class="flex flex-col items-center justify-center text-center p-6 bg-slate-50/70 rounded-2xl border border-slate-200/80">
                 <div class="relative w-28 h-28 mb-4">
                     <img id="avatar_preview" 
-                         src="<?= upload_url($avatar_url) ?>" 
+                         src="<?= get_profile_avatar_url($avatar_url) ?>" 
                          alt="Avatar" 
                          class="w-full h-full object-cover rounded-full bg-white p-1 border-2 border-indigo-100 shadow-md">
                 </div>

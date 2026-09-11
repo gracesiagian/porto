@@ -105,6 +105,27 @@ function upload_url(string $path = ''): string {
 }
 
 /**
+ * Returns persistent profile avatar URL with automatic fallback to committed asset on disk
+ */
+function get_profile_avatar_url(?string $custom_url = null): string {
+    $avatar_url = $custom_url ?? get_setting('avatar_url', '');
+    $clean_path = ltrim($avatar_url, '/');
+    $root_dir = realpath(__DIR__ . '/..') ?: dirname(__DIR__);
+
+    if (!empty($clean_path) && !str_starts_with($clean_path, 'http') && file_exists($root_dir . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $clean_path)) && !is_dir($root_dir . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $clean_path)) && $clean_path !== 'assets/images/avatar.svg') {
+        return upload_url($clean_path);
+    }
+    
+    if (file_exists($root_dir . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'faviconyell.jpg')) {
+        return asset_url('faviconyell.jpg');
+    }
+    if (file_exists($root_dir . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'faviconyell.png')) {
+        return asset_url('faviconyell.png');
+    }
+    return asset_url('images/avatar.svg');
+}
+
+/**
  * Sanitize string for HTML output
  */
 function e(?string $value): string {
