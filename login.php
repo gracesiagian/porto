@@ -44,7 +44,7 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin CMS Login — <?= e($designer_name) ?></title>
+    <title>jangan kesini — <?= e($designer_name) ?></title>
     
     <!-- Favicon Integration -->
     <link rel="icon" type="image/jpeg" href="/assets/faviconyell.jpg">
@@ -94,8 +94,8 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
             <div class="w-14 h-14 rounded-2xl bg-indigo-600/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center mx-auto mb-4 shadow-inner">
                 <i data-lucide="shield-check" class="w-7 h-7"></i>
             </div>
-            <h1 class="text-2xl font-black text-white tracking-tight">CMS Admin Panel</h1>
-            <p class="text-xs text-slate-400 mt-1">Kelola portofolio, kategori &amp; profil desain</p>
+            <h1 class="text-2xl font-black text-white tracking-tight">jangan kesini</h1>
+            <p class="text-xs text-slate-400 mt-1">ytta aja</p>
         </div>
 
         <!-- Flash & Error Alert -->
