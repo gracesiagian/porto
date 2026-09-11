@@ -9,17 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
-    // --- Helper function to resolve upload URL ---
+    // --- Robust helper function to resolve upload & asset URLs ---
     function resolveUploadUrl(url) {
         if (!url) return '';
         if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
             return url;
         }
         const cleanPath = url.replace(/^\/+/, '');
-        // Determine site root
-        const loc = window.location.pathname;
-        const baseDir = loc.substring(0, loc.lastIndexOf('/') + 1);
-        return baseDir + cleanPath;
+        const base = window.BASE_URL || '/';
+        return base.endsWith('/') ? base + cleanPath : base + '/' + cleanPath;
     }
 
     // 2. Category Filtering Logic
@@ -35,11 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (category === 'all' || cardCategory === category) {
                 card.classList.remove('hidden');
                 card.style.opacity = '0';
-                card.style.transform = 'scale(0.95)';
+                card.style.transform = 'scale(0.96)';
                 setTimeout(() => {
                     card.style.opacity = '1';
                     card.style.transform = 'scale(1)';
-                }, 50);
+                }, 40);
                 visibleCount++;
             } else {
                 card.classList.add('hidden');
@@ -62,10 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('active', 'bg-slate-900', 'text-white');
             btn.classList.remove('bg-white', 'text-slate-600', 'hover:bg-slate-100');
 
-            const category = btn.getAttribute('data-filter');
+            const category = btn.getAttribute('data-filter') || 'all';
             filterPortfolio(category);
         });
     });
+
+    // Check URL query param for preselected category (e.g. ?category=thumbnails)
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get('category');
+    if (categoryParam) {
+        const matchingBtn = document.querySelector(`.filter-btn[data-filter="${categoryParam}"]`);
+        if (matchingBtn) {
+            matchingBtn.click();
+        }
+    }
 
     // 3. Multi-Slide Carousel Lightbox Management
     const lightbox = document.getElementById('artwork-lightbox');
@@ -415,19 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. Smooth Scroll from Landing Pill
-    const scrollTrigger = document.querySelector('a[href="#portfolio-gallery"]');
-    if (scrollTrigger) {
-        scrollTrigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            const gallery = document.getElementById('portfolio-gallery');
-            if (gallery) {
-                gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    }
-
-    // 5. Back to Top Button
+    // 4. Back to Top Button
     const backToTopBtn = document.getElementById('back-to-top');
     if (backToTopBtn) {
         window.addEventListener('scroll', () => {

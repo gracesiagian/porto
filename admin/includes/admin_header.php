@@ -11,9 +11,19 @@ require_once __DIR__ . '/../../includes/auth.php';
 
 require_auth();
 
-$current_page = basename($_SERVER['PHP_SELF'] ?? '');
-$admin_user = current_user();
+$current_page  = basename($_SERVER['PHP_SELF'] ?? '');
+$admin_user    = current_user();
 $designer_name = get_setting('designer_name', 'Dimas Arya');
+$avatar_url    = get_setting('avatar_url', 'assets/images/avatar.svg');
+$favicon_url   = upload_url($avatar_url);
+$favicon_ext   = strtolower(pathinfo(parse_url($avatar_url, PHP_URL_PATH) ?? '', PATHINFO_EXTENSION));
+$favicon_type  = match($favicon_ext) {
+    'svg'   => 'image/svg+xml',
+    'png'   => 'image/png',
+    'jpg', 'jpeg' => 'image/jpeg',
+    'webp'  => 'image/webp',
+    default => 'image/x-icon'
+};
 ?>
 <!DOCTYPE html>
 <html lang="id" class="h-full bg-slate-50">
@@ -22,10 +32,20 @@ $designer_name = get_setting('designer_name', 'Dimas Arya');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($page_title ?? 'Dashboard') ?> — Admin CMS</title>
     
+    <!-- Dynamic Brand Favicon -->
+    <link rel="icon" type="<?= $favicon_type ?>" href="<?= e($favicon_url) ?>">
+    <link rel="shortcut icon" type="<?= $favicon_type ?>" href="<?= e($favicon_url) ?>">
+    <link rel="apple-touch-icon" href="<?= e($favicon_url) ?>">
+    
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+    
+    <!-- Base URL Definition for Client JS -->
+    <script>
+        window.BASE_URL = '<?= rtrim(base_url(), '/') ?>/';
+    </script>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
